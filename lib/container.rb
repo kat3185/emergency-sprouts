@@ -1,13 +1,15 @@
 require_relative 'conversions'
+require_relative 'ingredient'
 
 class Container
 
-  attr_reader :weight, :ingredient_weight
+  attr_reader :weight, :ingredient_weight, :container_weight
 
-  def initialize(ingredient_name, ingredient_weight)
-    @ingredient_name = ingredient_name
+  def initialize(ingredient_type, ingredient_weight)
+    @ingredient_type = ingredient_type
+    @ingredient_name = @ingredient_type.name
     @ingredient_weight = ingredient_weight
-    case @ingredient_name.downcase
+    case @ingredient_name
     when "brussels sprouts"
       @container_weight = lbs_to_grams(200)
     when "cheesy poof"
@@ -19,7 +21,7 @@ class Container
   end
 
   def sprout_count
-    @ingredient_weight / 20
+    (@ingredient_weight / 20).to_i
   end
 
 end
